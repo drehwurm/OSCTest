@@ -1,0 +1,116 @@
+﻿<Window x:Class="OSCTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OSCTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <Border Padding="10">
+        <StackPanel>
+            
+            
+            <!-- Erste Zeile-->
+            <TextBlock Text="The vlick WPF 2 OSC Sender" TextAlignment="Center" 
+                       FontWeight="Black" FontSize="22" Margin="0, 0, 0, 30"/>
+            
+            
+            
+            <!-- Zweite Zeile -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Integer" TextAlignment="Center" Margin="0, 0, 0, 5"/>
+                    <TextBox x:Name="integerTextBox" Margin="30, 0" Padding="5"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Address" TextAlignment="Center" Margin="0, 0, 0, 5"/>
+                    <TextBox x:Name="integerAddressTextBox" Margin="30, 0" Padding="5" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="" />
+                    <Button x:Name ="sendIntButton" Content="Send Int via OSC" Click="sendIntButton_Click" 
+                         Margin="30,0" Padding="5"/>
+                </StackPanel>
+                
+            </Grid>
+
+                <!-- Dritte Zeile -->
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="String" TextAlignment="Center" Margin="0, 0, 0, 5"/>
+                    <TextBox x:Name="stringTextBox" Margin="30, 0" Padding="5"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Address" TextAlignment="Center" Margin="0, 0, 0, 5"/>
+                    <TextBox x:Name="stringAddressTextBox" Margin="30, 0" Padding="5" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="" />
+                    <Button x:Name ="sendStringButton" Content="Send String via OSC" Click="sendStringButton_Click" 
+                         Margin="30,0" Padding="5"/>
+                </StackPanel>
+
+            </Grid>
+
+            <!-- Vierte Zeile -->
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Float" TextAlignment="Center" Margin="0, 0, 0, 5"/>
+                    <TextBox x:Name="floatTextBox" Margin="30, 0" Padding="5"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Address" TextAlignment="Center" Margin="0, 0, 0, 5"/>
+                    <TextBox x:Name="floatAdressTextBox" Margin="30, 0" Padding="5" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="" />
+                    <Button x:Name ="sendFloatButton" Content="Send Float via OSC" Click="sendFloatButton_Click" 
+                         Margin="30,0" Padding="5"/>
+                </StackPanel>
+
+            </Grid>
+
+            
+            <!-- Reciever Lines -->
+            <Button Content="RecieveLoop" Click="Button_Click" Margin="30"/>
+            <TextBlock Text="Integer Recieved" TextAlignment="Left" Margin="30, 0, 0, 0"/>
+            <TextBox x:Name="recievedIntegerMessage" Margin="30, 10" Padding="5" IsReadOnly="True"/>
+            <TextBlock Text="String Recieved" TextAlignment="Left" Margin="30, 10, 0, 0"/>
+            <TextBox x:Name="recievedStringMessage" Margin="30, 10" Padding="5" IsReadOnly="True"/>
+            <TextBlock Text="Float Recieved" TextAlignment="Left" Margin="30, 10, 0, 0"/>
+            <TextBox x:Name="recievedFloatMessage" Margin="30, 10" Padding="5" IsReadOnly="True"/>
+                        
+            
+
+        </StackPanel>
+    </Border>
+</Window>
