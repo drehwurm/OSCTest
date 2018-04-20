@@ -1,13 +1,18 @@
 ﻿using Ventuz.OSC;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace OSCTest
 {
     class messageReciever
     {
         //Fields
+        
         int port;
         UdpReader reader;
         OscBundle bundle = null;
+        OscElement message = null;
+        string argument;
 
         //Constructors
         public messageReciever()
@@ -23,11 +28,40 @@ namespace OSCTest
         }
 
         //Methods
-        public OscBundle Recieve()
+        public string Recieve()
         {
-            bundle = (OscBundle)reader.Receive();
+            Task recieveTask = new Task(() => {
+                Debug.WriteLine("Started new Thread");
+                while (true)
+                {
+                    bundle = (OscBundle)reader.Receive();
 
-            return bundle;
+                    if (bundle != null)
+                    {
+                        foreach (var element in bundle.Elements)
+                        {
+                            message = (OscElement)element;
+
+                            foreach (var arg in message.Args)
+                            {
+                                argument = (string)arg;
+                            }
+
+                            //Debug.WriteLine(argument);
+
+                        }
+                    }
+
+                }
+            });
+
+            //TO DO Implement something to prevent starting too many threads                        
+
+            recieveTask.Start();
+
+
+            return argument;
+
         }
 
 

@@ -101,7 +101,7 @@
 
             
             <!-- Reciever Lines -->
-            <Button Content="RecieveLoop" Click="Button_Click" Margin="30"/>
+            <Button Content="Start the RecieveLoop" Click="Button_Click" Margin="30"/>
             <TextBlock Text="Integer Recieved" TextAlignment="Left" Margin="30, 0, 0, 0"/>
             <TextBox x:Name="recievedIntegerMessage" Margin="30, 10" Padding="5" IsReadOnly="True"/>
             <TextBlock Text="String Recieved" TextAlignment="Left" Margin="30, 10, 0, 0"/>

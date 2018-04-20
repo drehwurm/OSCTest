@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ventuz.OSC;
+using System.Diagnostics;
 
 namespace OSCTest
 {
@@ -22,7 +24,7 @@ namespace OSCTest
     public partial class MainWindow : Window
     {
         messageSender m = new messageSender(); //Initialize OSC Sender
-        messageReciever r = new messageReciever(); //Initialize OSC Sender
+        messageReciever r = new messageReciever(); //Initialize OSC Reciever
 
         public MainWindow()
         {
@@ -30,6 +32,12 @@ namespace OSCTest
                         
         }
         
+
+
+
+
+        // Sender Methods
+
         private void sendIntButton_Click(object sender, RoutedEventArgs e)
         {
             OscElement imsg = new OscElement(integerAddressTextBox.Text, integerTextBox.Text); //Typkonvertierung beachten
@@ -48,16 +56,25 @@ namespace OSCTest
             m.sendOscMessage(fmsg);
         }
 
+
+
+
+
+
+        //Reciever Methods
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OscBundle bundle = r.Recieve();
-            if (bundle != null)
+
+            //TO DO Get Updates instantly as soon as r.Recieve() changes
+
+            recievedFloatMessage.Text = r.Recieve();
+            /*recievedFloatMessage.Dispatcher.BeginInvoke((ThreadStart)delegate ()
             {
-                foreach (OscElement element in bundle.Elements)
-                {
-                    recievedFloatMessage.Text += element;
-                }
-            }
+                recievedFloatMessage.Text = r.Recieve();
+            });*/
+
+
 
         }
     }
