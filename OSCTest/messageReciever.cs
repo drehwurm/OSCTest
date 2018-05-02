@@ -1,71 +1,90 @@
 ﻿using Ventuz.OSC;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using System;
+using System.Windows.Threading;
 
 namespace OSCTest
 {
-    class messageReciever
+
+    public class MessageReciever
     {
-        //Fields
-        
-        int port;
+        // Fields
+        OscDispatcher oscDispatcher = new OscDispatcher();
         UdpReader reader;
-        OscBundle bundle = null;
-        OscElement message = null;
-        string argument;
+        int port;
+        public string argument;
+        public delegate void MessageRecievedEventHandler(object source, EventArgs args);
+        public event MessageRecievedEventHandler MessageRecieved;
+
+
 
         //Constructors
-        public messageReciever()
+        public MessageReciever()
         {
             port = 4445;
             reader = new UdpReader(port);
+            oscDispatcher.AddNetReader(reader);
+            oscDispatcher.Bundle += OnRecieve;
+            StartRecieving();
         }
 
-        public messageReciever(int port)
+        public MessageReciever(int port)
         {
             this.port = port;
             reader = new UdpReader(port);
+            oscDispatcher.AddNetReader(reader);
+            oscDispatcher.Bundle += OnRecieve;
+            StartRecieving();
         }
 
-        //Methods
-        public string Recieve()
+
+
+        // Methods
+        public virtual void OnMessageRecieved()
         {
-            Task recieveTask = new Task(() => {
-                Debug.WriteLine("Started new Thread");
-                while (true)
+            if (MessageRecieved != null)
+            {
+                MessageRecieved(this, EventArgs.Empty);
+            }
+        }
+
+        public void StartRecieving()
+        {
+            DispatcherTimer purgeTimer = new DispatcherTimer();
+            purgeTimer.Tick += PurgeTimer_Tick;
+            purgeTimer.Interval = TimeSpan.FromMilliseconds(20); // 20 milliseconds
+            purgeTimer.Start();
+
+
+        }
+
+        private void PurgeTimer_Tick(object sender, EventArgs e)
+        {
+            oscDispatcher.Purge();
+        }
+
+        public void OnRecieve(OscDispatcher dispatcher, OscBundle bundle)
+        {
+            //Parsing the OSC Message
+            if (bundle != null)
+            {
+                foreach (var element in bundle.Elements)
                 {
-                    bundle = (OscBundle)reader.Receive();
+                    OscElement message = (OscElement)element;
 
-                    if (bundle != null)
+                    foreach (var arg in message.Args)
                     {
-                        foreach (var element in bundle.Elements)
-                        {
-                            message = (OscElement)element;
-
-                            foreach (var arg in message.Args)
-                            {
-                                argument = (string)arg;
-                            }
-
-                            //Debug.WriteLine(argument);
-
-                        }
+                        argument = (string)arg;
+                    }
+                    //Raising the event
+                    if (argument != null)
+                    {
+                        OnMessageRecieved();
                     }
 
                 }
-            });
-
-            //TO DO Implement something to prevent starting too many threads                        
-
-            recieveTask.Start();
-
-
-            return argument;
-
+            }
         }
-
-
-
-
     }
+
+
 }

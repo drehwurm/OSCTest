@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Ventuz.OSC;
 using System.Diagnostics;
 
+
 namespace OSCTest
 {
     /// <summary>
@@ -23,13 +24,13 @@ namespace OSCTest
     /// </summary>
     public partial class MainWindow : Window
     {
-        messageSender m = new messageSender(); //Initialize OSC Sender
-        messageReciever r = new messageReciever(); //Initialize OSC Reciever
+        MessageSender m = new MessageSender(); //Initialize OSC Sender
+        MessageReciever r = new MessageReciever(); //Initialize OSC Reciever
 
         public MainWindow()
         {
             InitializeComponent();
-                        
+            r.MessageRecieved += OnMessageRecieved;
         }
         
 
@@ -58,24 +59,12 @@ namespace OSCTest
 
 
 
-
-
-
         //Reciever Methods
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void OnMessageRecieved(object source, EventArgs e)
         {
-
-            //TO DO Get Updates instantly as soon as r.Recieve() changes
-
-            recievedFloatMessage.Text = r.Recieve();
-            /*recievedFloatMessage.Dispatcher.BeginInvoke((ThreadStart)delegate ()
-            {
-                recievedFloatMessage.Text = r.Recieve();
-            });*/
-
-
-
+            recievedMessage.Text = r.argument;
+            Debug.WriteLine(r.argument);
         }
     }
 }

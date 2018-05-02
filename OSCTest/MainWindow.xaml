@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OSCTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="500" Width="800">
     <Border Padding="10">
         <StackPanel>
             
@@ -101,13 +101,9 @@
 
             
             <!-- Reciever Lines -->
-            <Button Content="Start the RecieveLoop" Click="Button_Click" Margin="30"/>
-            <TextBlock Text="Integer Recieved" TextAlignment="Left" Margin="30, 0, 0, 0"/>
-            <TextBox x:Name="recievedIntegerMessage" Margin="30, 10" Padding="5" IsReadOnly="True"/>
-            <TextBlock Text="String Recieved" TextAlignment="Left" Margin="30, 10, 0, 0"/>
-            <TextBox x:Name="recievedStringMessage" Margin="30, 10" Padding="5" IsReadOnly="True"/>
-            <TextBlock Text="Float Recieved" TextAlignment="Left" Margin="30, 10, 0, 0"/>
-            <TextBox x:Name="recievedFloatMessage" Margin="30, 10" Padding="5" IsReadOnly="True"/>
+            <TextBlock Text="OSC Message Recieved" TextAlignment="Center" Margin="30, 20, 0, 0"/>
+            <TextBox x:Name="recievedMessage" Margin="30, 10" Padding="5" 
+                     Height="150" IsReadOnly="True"/>
                         
             
 

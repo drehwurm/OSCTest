@@ -2,7 +2,7 @@
 
 namespace OSCTest
 {
-    class messageSender
+    public class MessageSender
     {
         //Fields
         string address;
@@ -12,7 +12,7 @@ namespace OSCTest
 
 
         //Constructors
-        public messageSender()
+        public MessageSender()
         {
             address = "127.0.0.1";
             port = 4444;
@@ -20,7 +20,7 @@ namespace OSCTest
             writer = new UdpWriter(address, port);
         }
 
-        public messageSender(string address, int port)
+        public MessageSender(string address, int port)
         {
             this.address = address;
             this.port = port;
